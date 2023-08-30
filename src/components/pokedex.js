@@ -15,7 +15,7 @@ import './pokedex.css';
 
 
 function Pokedex(){
-    let [pokemon, setPokemon] = useState();
+    let [pokemon, setPokemon] = useState(EmptyPokemon());
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState();
     
@@ -50,7 +50,7 @@ function Pokedex(){
             console.log("información:");
             console.log(data)
 
-            pokemon = {
+            const newPokemon = {
                 img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
                 imgJuego: data.sprites.front_default,
                 imgCvg: data.sprites.other.dream_world.front_default,
@@ -64,8 +64,10 @@ function Pokedex(){
             //pintarCard(pokemon)
             //console.log("el pokemon es:");
             //console.log(pokemon);
-            //setLoading(true);
-            //showPokemon(pokemon, loading);        
+            setPokemon(newPokemon);
+            setLoading(true);
+            loading = true;
+            //showPokemon(pokemon, pokemon.img, loading);        
         } catch (error) {
             console.log(error);
             
@@ -73,13 +75,14 @@ function Pokedex(){
     }
     
     const loadNewPokemon = (pokemonID) => {
-        setLoading(false);
+        //setLoading(false);
         console.log("verifica si ingresa a carga: " + loading);
         if(loading){
             return ""; 
         }
         else{
-            const pokemonID = getRandomInt(1, 152);
+            console.log("pokemon a buscar paso 2: " + pokemonID);
+            //const pokemonID = getRandomInt(1, 152);
             fetchData(pokemonID);
         }
     };
@@ -112,7 +115,7 @@ function Pokedex(){
             <div className="light is-green" />
         </div>
         <div className="pokedex-screen-container">
-            {showPokemon(pokemon, false)}
+            {showPokemon(pokemon, pokemon.img , loading)}
         </div>
         <div className="pokedex-left-bottom">
             <div className="pokedex-left-bottom-lights">
@@ -120,7 +123,7 @@ function Pokedex(){
                 <div className="light is-green is-large" />
                 <div className="light is-orange is-large" />
             </div>
-            <PokemonForm setPokemonId={pokemon} setLoading={setLoading} setError={setError} />
+            <PokemonForm setPokemonId={loadNewPokemon} setLoading={setLoading} setError={setError} />
         </div>
         </div>
         <div className="pokedex-right-front" />
@@ -142,12 +145,27 @@ function Pokedex(){
 export default Pokedex
 
 
-export function showPokemon(pokemon, loading) {
+
+export function EmptyPokemon() {
+    return ({
+        img: "",
+        imgJuego: "",
+        imgCvg: "",
+        nombre: "",
+        experiencia: 0,
+        hp: 0,
+        ataque: 0,
+        defensa: 0,
+        especial: 0,
+    });
+}
+
+export function showPokemon(pokemon, pokemonImage, loading) {
     if(loading){
         console.log("show Pokemon");
         console.log(pokemon);
         return (
-            <PokedexScreen pokemon={pokemon} LoadingPokemon={pokemon.img} ErrorPokemon={"error"} />
+            <PokedexScreen pokemon={pokemon} LoadingPokemon={pokemonImage} ErrorPokemon={false} />
         )
     }
     else{
