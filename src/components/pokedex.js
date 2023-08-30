@@ -14,12 +14,16 @@ import './pokedex.css';
 */
 
 
-function Pokedex(pokemonID){
+function Pokedex(){
     let [pokemon, setPokemon] = useState();
-    let [loading, setLoading] = useState();
+    let [loading, setLoading] = useState(false);
     let [error, setError] = useState();
     
-    const pokemonRandom = pokemonID.pokemonID;
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    //const pokemonID = getRandomInt(1, 152);
+    //const pokemonRandom = pokemonID.pokemonID;
     /*
     useEffect(() => {
         fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonID}`)
@@ -60,11 +64,25 @@ function Pokedex(pokemonID){
             //pintarCard(pokemon)
             //console.log("el pokemon es:");
             //console.log(pokemon);
-            showPokemon(pokemon);        
+            //setLoading(true);
+            //showPokemon(pokemon, loading);        
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            
         }
-    } 
+    }
+    
+    const loadNewPokemon = (pokemonID) => {
+        setLoading(false);
+        console.log("verifica si ingresa a carga: " + loading);
+        if(loading){
+            return ""; 
+        }
+        else{
+            const pokemonID = getRandomInt(1, 152);
+            fetchData(pokemonID);
+        }
+    };
     
     //fetchData(pokemonID);
     /*
@@ -94,23 +112,15 @@ function Pokedex(pokemonID){
             <div className="light is-green" />
         </div>
         <div className="pokedex-screen-container">
-            {fetchData(pokemonRandom)}
-            fetchData
+            {showPokemon(pokemon, false)}
         </div>
         <div className="pokedex-left-bottom">
             <div className="pokedex-left-bottom-lights">
-            <div className="light is-blue is-medium" />
-            <div className="light is-green is-large" />
-            <div className="light is-orange is-large" />
+                <div className="light is-blue is-medium" />
+                <div className="light is-green is-large" />
+                <div className="light is-orange is-large" />
             </div>
-            
-            <PokemonForm
-                    setPokemonId={pokemon}
-                    setLoading={setLoading}
-                    setError={setError}
-                />
-            pokemonForm
-                
+            <PokemonForm setPokemonId={pokemon} setLoading={setLoading} setError={setError} />
         </div>
         </div>
         <div className="pokedex-right-front" />
@@ -132,12 +142,16 @@ function Pokedex(pokemonID){
 export default Pokedex
 
 
-export function showPokemon(pokemon) {
-    console.log("show Pokemon");
-    console.log(pokemon);
-    console.log("imagen");
-    console.log(pokemon.imgJuego);
-    return (
-        <PokedexScreen pokemon={pokemon} LoadingPokemon={pokemon.imgJuego} ErrorPokemon={"error"} />
-    )
+export function showPokemon(pokemon, loading) {
+    if(loading){
+        console.log("show Pokemon");
+        console.log(pokemon);
+        return (
+            <PokedexScreen pokemon={pokemon} LoadingPokemon={pokemon.img} ErrorPokemon={"error"} />
+        )
+    }
+    else{
+        return "";
+    }
+    
 }

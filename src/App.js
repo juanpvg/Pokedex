@@ -4,16 +4,18 @@ import './App.css';
 import Pokedex from './components/pokedex';
 
 function App() {
+  /*
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
   const pokemonID = getRandomInt(1, 152);
   console.log(pokemonID);
+  */
   
   return (
     <div className="App">
       <div className="App-header">
-        <Pokedex pokemonID={pokemonID} />
+        <Pokedex  />
       </div>
     </div>
   );
