@@ -1,25 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
 
+import Pokedex from './components/pokedex';
+
 function App() {
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+  const pokemonID = getRandomInt(1, 152);
+  console.log(pokemonID);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-header">
+        <Pokedex pokemonID={pokemonID} />
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
+/*
+<div className="App">
+      <header className="App-header">
+        <Pokedex pokemonID={pokemonID} />
+      </header>
+    </div>
+
+*/
