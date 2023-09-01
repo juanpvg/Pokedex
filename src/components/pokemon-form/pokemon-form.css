@@ -1,0 +1,35 @@
+
+.pokemon-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+.pokemon-input{
+    font-size: 0.6em;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    color: white;
+    background: black;
+    font-weight: bold;
+    text-align: center;
+    width: 12em;
+}
+.pokemon-btn {
+    background: #EC5757;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    -moz-border-radius: 13px;
+    -webkit-border-radius: 13px;
+    margin-left: 13px;
+}
+
+.pokemon-btn:hover {
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+

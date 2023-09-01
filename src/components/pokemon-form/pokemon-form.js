@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './pokemon-form.css';
 
 //function PokemonForm(){
 function PokemonForm({ setPokemonId, setLoading, setError }){
@@ -28,8 +29,7 @@ function PokemonForm({ setPokemonId, setLoading, setError }){
             type="text"
             name="pokemon"
             value={pokemon}
-            placeholder="Busca tu pokemon"
-            //Actualizas el valor del input cuando el usuario teclea
+            placeholder="Look for your pokemon"
             onChange={e => setPokemon(e.target.value)}
             autoComplete="off"/>
             <input type="submit" className="pokemon-btn" value=""/>
