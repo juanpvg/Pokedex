@@ -1,15 +1,13 @@
+import './pokedex.css';
 import React from 'react'
-import { useState, useEffect, Component } from 'react'
+import { useState } from 'react'
 
 //import showPokemon  from './show-pokemon.js'
 import PokedexScreen from './pokedex-screen/pokedex-screen'
 import PokemonForm from './pokemon-form/pokemon-form'
 
-import './pokedex.css';
 
-import { imagesPokemon } from '../const/const.js'
 //import styled from 'styled-components'
-
 //Ambas son válidas
 /*
 'pokeapi.co/api/v2/pokemon/25'
@@ -19,18 +17,12 @@ import { imagesPokemon } from '../const/const.js'
 
 function Pokedex(){
     let [pokemon, setPokemon] = useState(EmptyPokemon);
-    //let [pokemon, setPokemon] = useState();
     let [loading, setLoading] = useState(false);
     let [showStats, setShowStats] = useState(false);
     let [error, setError] = useState();
-    
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-    
+        
     const fetchData = async (id) => {
         try {
-            //console.log(id)
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
             const data = await res.json();
             console.log("información:");
@@ -52,30 +44,20 @@ function Pokedex(){
             setPokemon(newPokemon);
             setLoading(true);
             loading = true;
-            //showPokemon(pokemon, pokemon.img , loading)
         } catch (error) {
             console.log(error);
-            
         }
     }
     
     const loadNewPokemon = (pokemonID) => {
-        //setLoading(false);
-        console.log("verifica si ingresa a carga: " + loading);
         if(loading){
             return ""; 
         }
         else{
-            console.log("pokemon a buscar paso 2: " + pokemonID);
-            //const pokemonID = getRandomInt(1, 152);
             fetchData(pokemonID);
         }
     };
-    
-    const setShowStatsFunction = (newValue) => {
-        setShowStats(newValue);
-    }
-        
+            
     return (
     <div className="pokedex">
         <div className="pokedex-left">
@@ -104,9 +86,6 @@ function Pokedex(){
 }
 export default Pokedex
 
-// {showPokemon(pokemon, loading, showStats)}
-// <showPokemon pokemon={pokemon} loading={loading} showStats={showStats} />
-
 export function EmptyPokemon() {
     return ({
         id: -1,
@@ -125,26 +104,17 @@ export function EmptyPokemon() {
 
 export function showPokemon(pokemon, LoadingPokemon, showStats){
     if(pokemon.id === -1){
-    //if(!pokemon){
-        console.log("no hay pokemon");
-        console.log(pokemon);
         return (
             <PokedexScreen pokemon={pokemon} LoadingPokemon={false} ErrorPokemon={true} showStats={showStats} />
         )
-        
     }
     else {
         if(LoadingPokemon){
-            console.log("show Pokemon");
-            console.log(pokemon);
-            console.log("loading es true");
             return (
                 <PokedexScreen pokemon={pokemon} LoadingPokemon={true} ErrorPokemon={false} showStats={showStats} />
             )
         }
         else{
-            console.log("loading es false");
-            console.log(pokemon);
             return (
                 <PokedexScreen pokemon={pokemon} LoadingPokemon={false} ErrorPokemon={true} showStats={showStats} />
             )
