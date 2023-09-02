@@ -28,6 +28,7 @@
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    box-shadow: -1px 1px #E37F91;
 }
 .is-red {
     background: #DD082F;

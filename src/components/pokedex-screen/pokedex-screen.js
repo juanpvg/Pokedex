@@ -8,10 +8,13 @@ function PokedexScreen({ pokemon, LoadingPokemon, ErrorPokemon, showStats }){
     if(ErrorPokemon){
       return(showError());
     }
-    else if (LoadingPokemon && !showStats){
+    else if (LoadingPokemon){
+      return(showLoading());
+    }
+    else if (!LoadingPokemon && !showStats){
       return(showPokemonImage(pokemon));
     }
-    else if (LoadingPokemon && showStats){
+    else if (!LoadingPokemon && showStats){
       return(showPokemonStats(pokemon));
     }
 }
@@ -22,7 +25,7 @@ export default PokedexScreen
 export function showError(){
   return (
     <div className="pokedex-screen">
-      <img className="pokemon-image"
+      <img className="pokemon-image-error"
         src={imagesPokemon.error}
         alt="Hubo un error buscando tu pokemon"
       />
@@ -30,15 +33,22 @@ export function showError(){
   )
 }
 
-
+export function showLoading(){
+  return (
+    <div className="pokedex-screen">
+      <img className="pokemon-image-error"
+        src={imagesPokemon.loading}
+        alt="Cargando pokemon"
+      />
+    </div>
+  )
+}
 
 export function showPokemonImage(pokemon) {
   return (
     <div className="pokedex-screen">
-        <img className="pokemon-image"
-          src={pokemon.img}
-          alt="Aún no hay ningun pokemon"
-        /> 
+      <h2 className="pokemon-name">{pokemon.nombre}</h2>
+      <img className="pokemon-image" src={pokemon.img} alt="Aún no hay ningun pokemon" /> 
     </div>
   )
 }

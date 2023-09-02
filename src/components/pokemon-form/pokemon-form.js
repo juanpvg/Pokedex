@@ -1,25 +1,22 @@
 import React, { useState } from 'react'
 import './pokemon-form.css';
 
-//function PokemonForm(){
 function PokemonForm({ setPokemonId, setLoading, setError }){
     const [ pokemon, setPokemon ] = useState('');
-    //let [loading, setLoading] = useState();
-    //let [error, setError] = useState();
 
     const handleSubmit = e => {
         e.preventDefault()
         if(pokemon !== ''){
-            console.log("pokemon a buscar: " + pokemon);
+            //console.log("pokemon a buscar: " + pokemon);
             // Estara cargando por que hará una petición a la API
-            setError(true)
-            setLoading(false)
+            //setError(true)
+            //setLoading(false)
             const pokemonID = window.isNaN(parseInt(pokemon)) ? pokemon.toLowerCase() : pokemon
             setPokemonId(pokemonID);
-            setPokemon('');
+            //setPokemon('');
             return
         }
-        setError(true) //Si manda el formulario vacío, hay un error
+        //setError(true) //Si manda el formulario vacío, hay un error
     }
 
     return (
