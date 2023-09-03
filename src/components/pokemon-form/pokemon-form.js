@@ -9,8 +9,8 @@ function PokemonForm({ setPokemonId, setLoading, setError }){
         if(pokemon !== ''){
             //console.log("pokemon a buscar: " + pokemon);
             // Estara cargando por que hará una petición a la API
-            //setError(true)
-            //setLoading(false)
+            //setLoading(true);
+            //setError(false);
             const pokemonID = window.isNaN(parseInt(pokemon)) ? pokemon.toLowerCase() : pokemon
             setPokemonId(pokemonID);
             //setPokemon('');

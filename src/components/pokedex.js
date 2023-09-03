@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import PokedexScreen from './pokedex-screen/pokedex-screen.js'
 import PokemonForm from './pokemon-form/pokemon-form.js'
-import GetPokemon from './service-models/get-pokemon.js'
+import { GetPokemon, EmptyPokemon, EmptyArrayPokemon } from './service-models/model.pokemon.js'
 
 
 //import styled from 'styled-components'
@@ -17,19 +17,22 @@ import GetPokemon from './service-models/get-pokemon.js'
 
 function Pokedex(){
     let [pokemon, setPokemon] = useState(EmptyPokemon);
+    let [arrayPokemon, setArrayPokemon] = useState(EmptyArrayPokemon);
     let [loading, setLoading] = useState(true);
     let [showStats, setShowStats] = useState(false);
     let [error, setError] = useState(false);
     
-    const loadNewPokemon = (pokemonID) => {
-        GetPokemon(pokemonID, setPokemon, setLoading, setError);
+    const findPokemon = (pokemonID) => {
+        setLoading(true);
+        setError(false);
+        GetPokemon(pokemonID, arrayPokemon, setArrayPokemon, setPokemon, setLoading, setError);
     };
-            
+    
     return (
     <div className="pokedex">
         <div className="pokedex-left">
             <div className="pokedex-left-top">
-                <div className='light is-sky is-big'/>
+                <div className='light is-sky is-big'>{arrayPokemon.pokemonList.length}</div>
                 <div className="light is-red" />
                 <div className="light is-yellow" />
                 <div className="light is-green" />
@@ -43,7 +46,7 @@ function Pokedex(){
                     <button className="light is-green is-large button" onClick={() => setShowStats(false)}  >IMAGE</button>
                     <button className="light is-orange is-large button" onClick={() => setShowStats(true)}  >STATS</button>
                 </div>
-                <PokemonForm className="setPokemonId" setPokemonId={loadNewPokemon} setLoading={setLoading} setError={setError} />
+                <PokemonForm className="setPokemonId" setPokemonId={findPokemon} setLoading={setLoading} setError={setError} />
             </div>
         </div>
         <div className="pokedex-right-front" />
@@ -52,22 +55,6 @@ function Pokedex(){
     )
 }
 export default Pokedex
-
-export function EmptyPokemon() {
-    return ({
-        id: -1,
-        img: "",
-        imgJuego: "",
-        imgCvg: "",
-        nombre: "",
-        experiencia: 0,
-        hp: 0,
-        ataque: 0,
-        defensa: 0,
-        especial: 0,
-        stats: []
-    });
-}
 
 export function showPokemon(pokemon, LoadingPokemon, showStats, error){
     return (
