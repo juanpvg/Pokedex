@@ -22,29 +22,51 @@ function Pokedex(){
     let [showStats, setShowStats] = useState(false);
     let [error, setError] = useState(false);
     
+    const forward = ">";
+    const back = "<";
+
+    const greenState = () => {
+       return !(error || loading);
+    }
+
     const findPokemon = (pokemonID) => {
         setLoading(true);
         setError(false);
         GetPokemon(pokemonID, arrayPokemon, setArrayPokemon, setPokemon, setLoading, setError);
     };
+
     
+    const goBack = () => {
+        if(arrayPokemon.currentPokemon > 0){
+            arrayPokemon.currentPokemon+= -1;
+            setPokemon(arrayPokemon.pokemonList[arrayPokemon.currentPokemon]);
+        }
+    }
+    const goForward = () => {
+        if(arrayPokemon.currentPokemon < arrayPokemon.pokemonList.length-1){
+            arrayPokemon.currentPokemon+= 1;
+            setPokemon(arrayPokemon.pokemonList[arrayPokemon.currentPokemon]);
+        }
+    }
+
     return (
     <div className="pokedex">
         <div className="pokedex-left">
             <div className="pokedex-left-top">
-                <div className='light is-sky is-big'>{arrayPokemon.pokemonList.length}</div>
-                <div className="light is-red" />
-                <div className="light is-yellow" />
-                <div className="light is-green" />
+                <div className='light is-sky is-big'>{arrayPokemon.currentPokemon+1 + "|" + arrayPokemon.pokemonList.length}</div>
+                <div className={"light is-red " + error} />
+                <div className={"light is-yellow " + loading} />
+                <div className={"light is-green " + greenState()} />
             </div>
             <div className="pokedex-screen-container">
                 {showPokemon(pokemon, loading, showStats, error)}
             </div>
             <div className="pokedex-left-bottom">
                 <div className="pokedex-left-bottom-lights">
-                    <div className="light is-blue is-medium" />
+                    <button className="light is-blue is-medium button" onClick={() => goBack()}>{back}</button>
                     <button className="light is-green is-large button" onClick={() => setShowStats(false)}  >IMAGE</button>
                     <button className="light is-orange is-large button" onClick={() => setShowStats(true)}  >STATS</button>
+                    <button className="light is-blue is-medium button" onClick={() => goForward()}>{forward}</button>
                 </div>
                 <PokemonForm className="setPokemonId" setPokemonId={findPokemon} setLoading={setLoading} setError={setError} />
             </div>

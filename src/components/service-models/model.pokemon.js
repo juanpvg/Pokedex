@@ -18,7 +18,7 @@ export function EmptyPokemon() {
 
 export function EmptyArrayPokemon() {
     return ({
-        currentPokemon: 0,
+        currentPokemon: -1,
         pokemonList: []
     });
 }
@@ -26,8 +26,12 @@ export function EmptyArrayPokemon() {
 export function GetPokemon(id, arrayPokemon, setArrayPokemon, setPokemon, setLoading, setError){
     let  arrayTemp = arrayPokemon;
     const errorPokemon = (error) => {
-        console.log("El error es: " + error);
+        console.log("Error: " + error);
+        setPokemon(EmptyPokemon());
+        arrayTemp.currentPokemon = -1;
+        setArrayPokemon(arrayTemp);
         setError(true);
+        setLoading(false);
     };
     const addPokemon = (pokemon) => {
         setPokemon(pokemon);
@@ -37,6 +41,7 @@ export function GetPokemon(id, arrayPokemon, setArrayPokemon, setPokemon, setLoa
         arrayTemp.currentPokemon = arrayTemp.pokemonList.length - 1;
         setArrayPokemon(arrayTemp);
     };
+
     const index = findPokemon(id, arrayPokemon);
     if(index === -1){
         SearchPokemon(id,addPokemon,errorPokemon); 

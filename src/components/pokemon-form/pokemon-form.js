@@ -7,16 +7,10 @@ function PokemonForm({ setPokemonId, setLoading, setError }){
     const handleSubmit = e => {
         e.preventDefault()
         if(pokemon !== ''){
-            //console.log("pokemon a buscar: " + pokemon);
-            // Estara cargando por que hará una petición a la API
-            //setLoading(true);
-            //setError(false);
             const pokemonID = window.isNaN(parseInt(pokemon)) ? pokemon.toLowerCase() : pokemon
             setPokemonId(pokemonID);
-            //setPokemon('');
             return
         }
-        //setError(true) //Si manda el formulario vacío, hay un error
     }
 
     return (
